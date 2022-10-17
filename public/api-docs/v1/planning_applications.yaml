@@ -52,3 +52,109 @@
                         code: RD03
                         type: Residential, Dwellings, Semi-Detached
                       address: Byre House Dollicott Haddenham Buckinghamshire HP17 8JG
+  post:
+    summary: Create new planning application
+    tags:
+      - Planning application
+    security:
+      - bearerAuth: []
+    parameters: []
+    responses:
+      '200':
+        description: valid_request
+        content: {}
+      '400':
+        description: invalid_request
+        content: {}
+      '401':
+        description: unauthorized_user
+        content: {}
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              reference:
+                type: string
+                example: 89/00090/APPLIC
+              area:
+                type: string
+                example: Central
+              description:
+                type: string
+                example: Submission from Silverstone
+              received_at:
+                type: string
+                example: 14/06/2022
+              officer_name:
+                type: string
+                example: Ms May Lo
+              decision:
+                type: string
+                example: Discharge - Satisfies Requirements
+              decision_issued_at:
+                type: string
+                example: 02/09/2022
+              view_documents:
+                type: string
+                example: https://publicaccess.aylesburyvaledc.gov.uk/online-applications/applicationDetails.do?activeTab=documents&keyVal=AB123
+              full:
+                type: string
+                example: 1 Silverstone Road NN12 8TN
+              postcode:
+                type: string
+                example: NN12 8TN
+              town:
+                type: string
+                example: Towcester
+              map_east:
+                type: string
+                example: 467520
+              map_north:
+                type: string
+                example: 241616
+              ward:
+                type: string
+                example: W037
+              ward_name:
+                type: string
+                example: Ridgeway West
+              uprn:
+                type: string
+                example: 766298059
+              code:
+                type: string
+                example: RD03
+              type:
+                type: string
+                example: Residential, Dwellings, Detached
+            required:
+              - reference
+              - area
+              - description
+              - received_at
+              - decision
+              - decision_issued_at
+              - full
+          examples:
+            Sample:
+              value:
+                reference: 89/00090/APPLIC
+                area: South & East
+                description: Listed Building Application for replacement non-illuminated fascia sign.
+                received_at: 14/06/2022
+                officer_name: null
+                decision: Conditional permission
+                decision_issued_at: 02/09/2022
+                view_documents: https://pa.chilternandsouthbucks.gov.uk/online-applications/applicationDetails.do?activeTab=documents&keyVal=ZZZZZYESPM408
+                full: 9 London End Beaconsfield Buckinghamshire HP9 2HN
+                postcode: null
+                town: null
+                map_east: null
+                map_north: null
+                ward: null
+                ward_name: null
+                uprn: 100080483593
+                code: CR08
+                type: Commercial, Retail, Shops and Showrooms
