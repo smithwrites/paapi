@@ -95,6 +95,33 @@ jobs:
           --task-definition $TASK_DEFINITION --launch-type FARGATE \
           --network-configuration '{"awsvpcConfiguration": {"subnets": ["'$PAAPI_SUBNETS'"],"securityGroups": ["'$PAAPI_SG'"],"assignPublicIp": "ENABLED"}}'
 
+    strategy:
+      matrix:
+        worker_type: [ 'high-priority', 'low-priority' ]
+    - name: Download task definition for ${{ matrix.worker_type }} and strip unused properties
+      env:
+        IMAGE_ARN: ${{ steps.build-image.outputs.image }}
+      run: |
+        aws ecs describe-task-definition --task-definition paapi-db-migrate-${{ inputs.environment-name }} --query taskDefinition | \
+        jq -r 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' | \
+        jq -r '.containerDefinitions[].image = "'$IMAGE_ARN'"' > ${{ matrix.worker_type }}.json
+
+    - name: Register ${{ matrix.worker_type }} on a new revision
+      run: |
+        aws ecs register-task-definition \
+          --cli-input-json file://${{ matrix.worker_type }}.json
+
+    - name: Run ${{ matrix.worker_type }}
+      env:
+        CLUSTER: paapi-${{ inputs.environment-name }}
+        TASK_DEFINITION: paapi-db-migrate-${{ inputs.environment-name }}
+        PAAPI_SUBNETS: subnet-${{ secrets.PAAPI_SUBNETS }}
+        PAAPI_SG: sg-${{ secrets.PAAPI_SG }}
+      run: |
+        aws ecs run-task --cluster $CLUSTER \
+          --task-definition $TASK_DEFINITION --launch-type FARGATE \
+          --network-configuration '{"awsvpcConfiguration": {"subnets": ["'$PAAPI_SUBNETS'"],"securityGroups": ["'$PAAPI_SG'"],"assignPublicIp": "ENABLED"}}'
+
     - name: Download task definition for web and strip unused properties
       run: |
         aws ecs describe-task-definition --task-definition paapi-web-${{ inputs.environment-name }} --query taskDefinition | \
