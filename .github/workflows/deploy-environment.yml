@@ -16,6 +16,9 @@ jobs:
     name: Deploy to ${{ inputs.environment-name }}
     runs-on: ubuntu-20.04
     environment: ${{ inputs.environment-name }}
+    strategy:
+      matrix:
+        worker_type: [ 'high-priority', 'low-priority' ]
 
     steps:
       - name: Checkout
@@ -95,49 +98,26 @@ jobs:
             --task-definition $TASK_DEFINITION --launch-type FARGATE \
             --network-configuration '{"awsvpcConfiguration": {"subnets": ["'$PAAPI_SUBNETS'"],"securityGroups": ["'$PAAPI_SG'"],"assignPublicIp": "ENABLED"}}'
 
-      - name: Download task definition for worker high-priority and strip unused properties
+      - name: Download task definition for worker ${{ matrix.worker_type }} and strip unused properties
         env:
           IMAGE_ARN: ${{ steps.build-image.outputs.image }}
         run: |
-          aws ecs describe-task-definition --task-definition paapi-worker-high-priority-${{ inputs.environment-name }} --query taskDefinition | \
-          jq -r 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' > worker-high-priority.json
+          aws ecs describe-task-definition --task-definition paapi-worker-${{ matrix.worker_type }}-${{ inputs.environment-name }} --query taskDefinition | \
+          jq -r 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' > worker-${{ matrix.worker_type }}.json
 
-      - name: Generate task definition for worker high-priority
-        id: task-def-worker-high-priority
+      - name: Generate task definition for worker ${{ matrix.worker_type }}
+        id: steps[format('task-def-worker-{0}', matrix.worker_type)]
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: worker-high-priority.json
+          task-definition: worker-${{ matrix.worker_type }}.json
           container-name: paapi
           image: ${{ steps.build-image.outputs.image }}
 
-      - name: Deploy worker high-priority
+      - name: Deploy worker ${{ matrix.worker_type }}
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def-worker-high-priority.outputs.task-definition }}
-          service: paapi-worker-high-priority-${{ inputs.environment-name }}
-          cluster: paapi-${{ inputs.environment-name }}
-          wait-for-service-stability: true
-
-      - name: Download task definition for worker low-priority and strip unused properties
-        env:
-          IMAGE_ARN: ${{ steps.build-image.outputs.image }}
-        run: |
-          aws ecs describe-task-definition --task-definition paapi-worker-low-priority-${{ inputs.environment-name }} --query taskDefinition | \
-          jq -r 'del(.compatibilities, .taskDefinitionArn, .requiresAttributes, .revision, .status, .registeredAt, .registeredBy)' > worker-low-priority.json
-
-      - name: Generate task definition for worker low-priority
-        id: task-def-worker-low-priority
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: worker-low-priority.json
-          container-name: paapi
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy worker low-priority
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def-worker-low-priority.outputs.task-definition }}
-          service: paapi-worker-low-priority-${{ inputs.environment-name }}
+          task-definition: ${{ steps[format('task-def-worker-{0}', matrix.worker_type)].outputs.task-definition }}
+          service: paapi-worker-${{ matrix.worker_type }}-${{ inputs.environment-name }}
           cluster: paapi-${{ inputs.environment-name }}
           wait-for-service-stability: true
 
