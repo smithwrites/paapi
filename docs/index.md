@@ -59,7 +59,7 @@ We are working with councils and other stakeholders to develop a reliable, effic
       <div class="govuk-grid-column-one-half-from-desktop govuk-!-margin-bottom-8">
         <img src="/assets/images/chat-with-us-on-slack.svg" width="90%" alt="Slack conversation illustration." loading="lazy">
         <h3 class="govuk-heading-l">Chat with us</h3>
-        <p>If you work with Open Digital Planning, find us on the <a href="https://opendigitalplanning.slack.com/archives/C04MB9HA6N6">#group-planning-register-data Slack channel</a> to give us feedback or share your work with us. You can also <a href="mailto:bops.register.feedback@unboxed.co">email us with any questions</a>.</p>
+        <p>If you work with Open Digital Planning, find us on the <a href="https://opendigitalplanning.slack.com/archives/C04MB9HA6N6">#group-planning-register-data Slack channel</a> to give us feedback or share your work with us. You can also <a href="mailto:bops.register.feedback@unboxed.co">email us with any questions</a> at bops.register.feedback@unboxed.co.</p>
       </div>
       <div class="govuk-grid-column-one-half-from-desktop govuk-!-margin-bottom-8">
         <img src="/assets/images/propose-a-change-to-pages.svg" width="90%" alt="Github illustration" class="app-image--no-border" loading="lazy">
