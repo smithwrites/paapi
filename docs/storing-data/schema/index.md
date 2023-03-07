@@ -40,7 +40,7 @@ We are opening up our intended database schema to try to capture all of the rele
       Planning Applications
     </dt>
     <dd class="govuk-summary-list__value">
-      The main planning application data, containing the decision, reviewer, etc, with a link to local authorities
+      The main planning application data, containing the decision, reviewer and so on, with a link to local authorities
     </dd>
     <dd class="govuk-summary-list__actions">
       <a class="govuk-link" href="planning_applications">
