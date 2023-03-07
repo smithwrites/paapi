@@ -7,13 +7,13 @@ description: Sharing data
 
 ## Datasets
 
-We identified different systems that provide, create, or read planning data, and systems that use planning data.
+We identified different systems that provide, create, or read planning data and systems that use planning data.
 
 ### Source data
 
 These systems provide source data:
  - Local Authority Gazetteer
- - Digital Land Planning Data Platform
+ - Digital Land planning data platform
  - Local Authority GIS
 
 
@@ -29,21 +29,21 @@ These systems create planning application data:
 These process planning application data:
 
  - BoPS
- - Other back office system
+ - other back office systems
  - Consultee System
  - Consultee Portal
  - ODP Register
 
 ### Generated from data
 
-- Central government reports
-- Other data users
+- central government reports
+- other data users
 
 -------------
 
 ## Data strategies
 
-We examined potential data strategies for systems to share data. We concluded on a hybrid stategy, detailed below.
+We examined potential data strategies for systems to share data. We concluded on a hybrid stategy, described in the next section.
 
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
   <div class="govuk-accordion__section">
@@ -99,9 +99,9 @@ It is a challenge in distributed systems where multiple databases are used to st
 
 Replication latency is the amount of time after an update is made for it to be replicated across all systems.
 
-Most councils use one system to record planning applications, and as such any data strategy would have to examine data transfer issues around this. A conventional nightly batch update would likely meet this issue, with systems having a known 24 hour period of latency. As an API develops, this could be lowered using push techniques.
+Most councils use one system to record planning applications. Any data strategy would have to examine data transfer issues around this. A conventional nightly batch update would likely meet this issue, with systems having a known 24 hour period of latency. As an API develops, this could be lowered using push techniques.
 
-An API would therefore have to send and recieve 'diffs', or just send changes to data, between start and end times, in order to not overload any nightly tasks.
+An API would have to send and receive 'diffs', or just send changes to data, between start and end times, in order to not overload any nightly tasks.
 
 The largest amount of data transferred would be documents attached to planning data. These would likely be transferred between systems using signed URLs.
 
