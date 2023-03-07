@@ -12,7 +12,7 @@ description: Planning Register API
           Find historical and current planning data 
         </h1>
         <p class="app-hero__description">
-          A platform to help you create services using planning data, and proposals for standardising this information exchange.
+          A platform to help you create services using planning data, with proposals for standardising this information exchange.
         </p>
       </div>
       <div class="govuk-grid-column-one-third-from-desktop">
@@ -27,7 +27,7 @@ description: Planning Register API
 <strong class="govuk-tag govuk-!-margin-top-4 govuk-!-margin-bottom-2">Updated: MARCH 2023</strong>
 
 The Planning Register will provide an open platform to store, analyse and access planning data in a uniform way. 
-The system will include an API as well as other tools to ensure that all legacy data is accessible. 
+The system will include an API and other tools to ensure that all legacy data is accessible. 
 We are working with councils and other stakeholders to develop a reliable, efficient register prototype.
 
 <div class="app-width-container">
@@ -35,7 +35,7 @@ We are working with councils and other stakeholders to develop a reliable, effic
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
         <h2 class="govuk-heading-l">Collecting data</h2>
-        <p>Explore how we plan to get planning data from sources, the tools we have in place, and future plans for collecting data.</p>
+        <p>How we plan to get planning data, the tools we have in place, and future plans for collecting data.</p>
         <a href="/collecting-data/" class="govuk-button">Collecting data</a>
       </div>
       <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
@@ -45,7 +45,7 @@ We are working with councils and other stakeholders to develop a reliable, effic
       </div>
       <div class="govuk-grid-column-one-third-from-desktop govuk-!-margin-bottom-8">
         <h2 class="govuk-heading-l">Sharing data</h2>
-        <p class="govuk-body">How we plan to share data from the register, an API explorer for the current API, and future recommended strategies.</p>
+        <p class="govuk-body">How we plan to share data from the register, an API explorer for the current API, and recommended strategies.</p>
         <a href="/sharing-data/" class="govuk-button">Sharing data</a>
       </div>
     </div>
